@@ -90,6 +90,13 @@ function onShowModal(obj, isEventDetail) {
 }
 
 function onCloseModal() {
+    $("#lessonForm")[0].reset();
+    $("#id").val(0);
+    $("#title").val('');
+    $("#description").val('');
+    $("#lessonDate").val('');
+    $("#duration").val('');
+    $("#studentId").val('');
 
     $("#lessonInput").modal("hide");
 }
@@ -113,6 +120,7 @@ function onSubmitForm() {
             contentType: 'application/json',
             success: function (response) {
                 if (response.status === 1 || response.status === 2) {
+                    calendar.refetchEvents();
                     $.notify(response.message, "success");
                     onCloseModal();
                 }
@@ -167,6 +175,6 @@ function getEventDetailsByEventId(info) {
     });
 }
 
-function onDoctorChange() {
+function onTeacherChange() {
     calendar.refetchEvents();
 }
