@@ -95,12 +95,30 @@ namespace Calendar.Services
 
         public List<LessonVM> StudentsEventsById(string studentId)
         {
-            throw new NotImplementedException();
+            return _db.Lessons.Where(x => x.StudentId == studentId).ToList().Select(c => new LessonVM()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                Topic = c.Topic,
+                Duration = c.Duration,
+                IsTeacherApproved = c.IsTeacherApproved
+            }).ToList();
         }
 
         public List<LessonVM> TeachersEventsById(string teacherId)
         {
-            throw new NotImplementedException();
+            return _db.Lessons.Where(x => x.TeacherId == teacherId).ToList().Select(c => new LessonVM()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                Topic = c.Topic,
+                Duration = c.Duration,
+                IsTeacherApproved = c.IsTeacherApproved
+            }).ToList();
         }
     }
 }
