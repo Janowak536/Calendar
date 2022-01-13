@@ -53,6 +53,7 @@ namespace Calendar.Controllers.Api
 
             return Ok(commonResponse);
         }
+
         [HttpGet]
         [Route("GetCalendarData")]
         public IActionResult GetCalendarData(string teacherId)
@@ -83,6 +84,7 @@ namespace Calendar.Controllers.Api
             }
             return Ok(commonResponse);
         }
+
         [HttpGet]
         [Route("GetCalendarDataById/{id}")]
         public IActionResult GetCalendarDataById(int id)
@@ -102,5 +104,7 @@ namespace Calendar.Controllers.Api
             }
             return Ok(commonResponse);
         }
+
+
     }
 }

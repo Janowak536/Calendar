@@ -20,9 +20,8 @@ namespace Calendar.Utility
         public static string lessonAddError = "Something went wront, Please try again.";
         public static string lessonUpdatError = "Something went wront, Please try again.";
         public static string somethingWentWrong = "Something went wront, Please try again.";
-
         public static int success_code = 1;
-        public static int failure_code = 1;
+        public static int failure_code = 0;
 
         public static List<SelectListItem> GetRolesForDropDown()
         {
@@ -33,6 +32,7 @@ namespace Calendar.Utility
                 new SelectListItem{Value=Helper.Teacher,Text=Helper.Teacher}
             };
         }
+
         public static List<SelectListItem> GetTimeDropDown()
         {
             int minute = 60;

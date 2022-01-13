@@ -16,6 +16,7 @@ namespace Calendar.Services
         {
             _db = db;
         }
+
         public async Task<int> AddUpdate(LessonVM model)
         {
             var startDate = DateTime.Parse(model.StartDate);
@@ -46,26 +47,31 @@ namespace Calendar.Services
                 await _db.SaveChangesAsync();
                 return 2;
             }
+
         }
 
-        public Task<int> ConfirmEvent(int id)
+        public List<LessonVM> TeachersEventsById(string teacherId)
         {
-            throw new NotImplementedException();
+            return _db.Lessons.Where(x => x.TeacherId == teacherId).ToList().Select(c => new LessonVM()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                Title = c.Title,
+                Duration = c.Duration,
+                IsTeacherApproved = c.IsTeacherApproved
+            }).ToList();
         }
 
-        public Task<int> Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public LessonVM GetById(int id) // tutaj moze bedzie jakis blad
+        public LessonVM GetById(int id)
         {
             return _db.Lessons.Where(x => x.Id == id).ToList().Select(c => new LessonVM()
             {
                 Id = c.Id,
                 Description = c.Description,
-                StartDate = c.StartDate.ToString("dd/MM/yyyy HH:mm:ss"),
-                EndDate = c.EndDate.ToString("dd/MM/yyyy HH:mm:ss"),
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
                 IsTeacherApproved = c.IsTeacherApproved,
@@ -74,6 +80,21 @@ namespace Calendar.Services
                 StudentName = _db.Users.Where(x => x.Id == c.StudentId).Select(x => x.Name).FirstOrDefault(),
                 TeacherName = _db.Users.Where(x => x.Id == c.TeacherId).Select(x => x.Name).FirstOrDefault(),
             }).SingleOrDefault();
+        }
+
+        public List<TeacherVM> GetTeacherList()
+        {
+            var doctors = (from user in _db.Users
+                           join userRoles in _db.UserRoles on user.Id equals userRoles.UserId
+                           join roles in _db.Roles.Where(x => x.Name == Helper.Teacher) on userRoles.RoleId equals roles.Id
+                           select new TeacherVM
+                           {
+                               Id = user.Id,
+                               Name = user.Name
+                           }
+                           ).ToList();
+
+            return doctors;
         }
 
         public List<StudentVM> GetStudentList()
@@ -91,38 +112,9 @@ namespace Calendar.Services
             return students;
         }
 
-        public List<TeacherVM> GetTeacherList()
-        {
-            var teachers = (from user in _db.Users
-                           join userRoles in _db.UserRoles on user.Id equals userRoles.UserId
-                           join roles in _db.Roles.Where(x => x.Name == Helper.Teacher) on userRoles.RoleId equals roles.Id
-                           select new TeacherVM
-                           {
-                               Id = user.Id,
-                               Name = user.Name
-                           }
-                            ).ToList();
-
-            return teachers;
-        }
-
         public List<LessonVM> StudentsEventsById(string studentId)
         {
             return _db.Lessons.Where(x => x.StudentId == studentId).ToList().Select(c => new LessonVM()
-            {
-                Id = c.Id,
-                Description = c.Description,
-                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                Title = c.Title,
-                Duration = c.Duration,
-                IsTeacherApproved = c.IsTeacherApproved
-            }).ToList();
-        }
-
-        public List<LessonVM> TeachersEventsById(string teacherId)
-        {
-            return _db.Lessons.Where(x => x.TeacherId == teacherId).ToList().Select(c => new LessonVM()
             {
                 Id = c.Id,
                 Description = c.Description,

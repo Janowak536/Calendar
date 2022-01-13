@@ -2,9 +2,9 @@
 $(document).ready(function () {
     $("#lessonDate").kendoDateTimePicker({
         value: new Date(),
-        dateInput: false,
-        format: "dd/MM/yyyy HH:mm:ss" // I have researched this and added this in myself which works for my region.
+        dateInput: false
     });
+
     InitializeCalendar();
 });
 var calendar;
@@ -14,55 +14,51 @@ function InitializeCalendar() {
 
         var calendarEl = document.getElementById('calendar');
         if (calendarEl != null) {
-            calendar = new FullCalendar.Calendar(calendarEl,
-                {
-                    initialView: 'dayGridMonth',
-                    headerToolbar: {
-                        left: 'prev,next,today',
-                        center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                    },
-                    timeZone: 'Europe/Berlin', // find your country time zone and replace the part in '' here.
-                    selectable: true,
-                    editable: false,
-                    select: function (event) {
-                        onShowModal(event, null);
-                    },
-                    eventDisplay: 'block',
-                    events: function (fetchInfo, successCallback, failureCallback) {
-                        $.ajax({
-                            url: routeURL + '/api/Lesson/GetCalendarData?teacherId=' + $("#teacherId").val(),
-                            type: 'GET',
-                            dataType: 'JSON',
-                            success: function (response) {
-                                var events = [];
-                                if (response.status === 1) {
-                                    $.each(response.dataenum, function (i, data) {
-                                        events.push({
-                                            title: data.title,
-
-                                            description: data.description,
-                                            start: data.startDate,
-                                            end: data.endDate,
-                                            backgroundColor: data.isTeacherApproved ? "#30c953" : "#c21f2f",
-                                            borderColor: "#142e9c",
-                                            textColor: "white",
-                                            id: data.id
-
-                                        });
-                                    })
-                                }
-                                successCallback(events);
-                            },
-                            error: function (xhr) {
-                                $.notify("Error", "error");
+            calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next,today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                selectable: true,
+                editable: false,
+                select: function (event) {
+                    onShowModal(event, null);
+                },
+                eventDisplay: 'block',
+                events: function (fetchInfo, successCallback, failureCallback) {
+                    $.ajax({
+                        url: routeURL + '/api/Lesson/GetCalendarData?teacherId=' + $("#teacherId").val(),
+                        type: 'GET',
+                        dataType: 'JSON',
+                        success: function (response) {
+                            var events = [];
+                            if (response.status === 1) {
+                                $.each(response.dataenum, function (i, data) {
+                                    events.push({
+                                        title: data.title,
+                                        description: data.description,
+                                        start: data.startDate,
+                                        end: data.endDate,
+                                        backgroundColor: data.isTeacherApprove ? "#28a745" : "#dc3545",
+                                        borderColor: "#162466",
+                                        textColor: "white",
+                                        id: data.id
+                                    });
+                                })
                             }
-                        });
-                    },
-                    eventClick: function (info) {
-                        getEventDetailsByEventId(info.event);
-                    }
-                });
+                            successCallback(events);
+                        },
+                        error: function (xhr) {
+                            $.notify("Error", "error");
+                        }
+                    });
+                },
+                eventClick: function (info) {
+                    getEventDetailsByEventId(info.event);
+                }
+            });
             calendar.render();
         }
 
@@ -74,8 +70,22 @@ function InitializeCalendar() {
 }
 
 
-
 function onShowModal(obj, isEventDetail) {
+    if (isEventDetail != null) {
+
+        $("#title").val(obj.title);
+        $("#description").val(obj.description);
+        $("#lessonDate").val(obj.startDate);
+        $("#duration").val(obj.duration);
+        $("#teacherId").val(obj.teacherId);
+        $("#studentId").val(obj.studentId);
+        $("#id").val(obj.id);
+
+    }
+    else {
+        $("#lessonDate").val(obj.startStr + " " + new moment().format("hh:mm A"));
+        $("#id").val(0);
+    }
     $("#lessonInput").modal("show");
 }
 
@@ -86,38 +96,37 @@ function onCloseModal() {
 
 function onSubmitForm() {
     if (checkValidation()) {
+        var requestData = {
+            Id: parseInt($("#id").val()),
+            Title: $("#title").val(),
+            Description: $("#description").val(),
+            StartDate: $("#lessonDate").val(),
+            Duration: $("#duration").val(),
+            TeacherId: $("#teacherId").val(),
+            StudentId: $("#studentId").val(),
+        };
 
-    
-    var requestData = {
-        Id: parseInt($("#id").val()),
-        Title: $("#title").val(),
-        Description: $("#description").val(),
-        StartDate: $("#lessonDate").val(),
-        Duration: $("#duration").val(),
-        TeacherId: $("#teacherId").val(),
-        StudentId: $("#studentId").val(),
-    };
-
-    $.ajax({
-        url: routeURL + '/api/Lesson/SaveCalendarData',
-        type: 'POST',
-        data: JSON.stringify(requestData),
-        contentType: 'application/json',
-        success: function (response) {
-            if (response.status === 1 || response.status === 2) {
-                $.notify(response.message, "success");
-                onCloseModal();
+        $.ajax({
+            url: routeURL + '/api/Lesson/SaveCalendarData',
+            type: 'POST',
+            data: JSON.stringify(requestData),
+            contentType: 'application/json',
+            success: function (response) {
+                if (response.status === 1 || response.status === 2) {
+                    $.notify(response.message, "success");
+                    onCloseModal();
+                }
+                else {
+                    $.notify(response.message, "error");
+                }
+            },
+            error: function (xhr) {
+                $.notify("Error", "error");
             }
-            else {
-                $.notify(response.message, "error");
-            }
-        },
-        error: function (xhr) {
-            $.notify("Error", "error");
-        }
-    });
+        });
     }
 }
+
 function checkValidation() {
     var isValid = true;
     if ($("#title").val() === undefined || $("#title").val() === "") {
@@ -138,4 +147,26 @@ function checkValidation() {
 
     return isValid;
 
+}
+
+function getEventDetailsByEventId(info) {
+    $.ajax({
+        url: routeURL + '/api/Lesson/GetCalendarDataById/' + info.id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (response) {
+
+            if (response.status === 1 && response.dataenum !== undefined) {
+                onShowModal(response.dataenum, true);
+            }
+            successCallback(events);
+        },
+        error: function (xhr) {
+            $.notify("Error", "error");
+        }
+    });
+}
+
+function onDoctorChange() {
+    calendar.refetchEvents();
 }

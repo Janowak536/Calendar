@@ -10,6 +10,7 @@ namespace Calendar.Controllers
 {
     public class LessonController : Controller
     {
+
         private readonly ILessonService _lessonService;
 
         public LessonController(ILessonService lessonService)
@@ -23,6 +24,7 @@ namespace Calendar.Controllers
             ViewBag.Duration = Helper.GetTimeDropDown();
             ViewBag.TeacherList = _lessonService.GetTeacherList();
             ViewBag.StudentList = _lessonService.GetStudentList();
+
             return View();
         }
     }

@@ -57,6 +57,7 @@ namespace Calendar.Controllers
             }
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -84,6 +85,8 @@ namespace Calendar.Controllers
             }
             return View(model);
         }
+
+
         [HttpPost]
         public async Task<IActionResult> LogOff()
         {
