@@ -31,7 +31,7 @@ namespace Calendar.Services
                 //create
                 Lesson lesson = new Lesson()
                 {
-                    Topic = model.Topic,
+                    Title = model.Title,
                     Description = model.Description,
                     StartDate = startDate,
                     EndDate = endDate,
@@ -58,9 +58,22 @@ namespace Calendar.Services
             throw new NotImplementedException();
         }
 
-        public LessonVM GetById(int id)
+        public LessonVM GetById(int id) // tutaj moze bedzie jakis blad
         {
-            throw new NotImplementedException();
+            return _db.Lessons.Where(x => x.Id == id).ToList().Select(c => new LessonVM()
+            {
+                Id = c.Id,
+                Description = c.Description,
+                StartDate = c.StartDate.ToString("dd/MM/yyyy HH:mm:ss"),
+                EndDate = c.EndDate.ToString("dd/MM/yyyy HH:mm:ss"),
+                Title = c.Title,
+                Duration = c.Duration,
+                IsTeacherApproved = c.IsTeacherApproved,
+                StudentId = c.StudentId,
+                TeacherId = c.TeacherId,
+                StudentName = _db.Users.Where(x => x.Id == c.StudentId).Select(x => x.Name).FirstOrDefault(),
+                TeacherName = _db.Users.Where(x => x.Id == c.TeacherId).Select(x => x.Name).FirstOrDefault(),
+            }).SingleOrDefault();
         }
 
         public List<StudentVM> GetStudentList()
@@ -101,7 +114,7 @@ namespace Calendar.Services
                 Description = c.Description,
                 StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                Topic = c.Topic,
+                Title = c.Title,
                 Duration = c.Duration,
                 IsTeacherApproved = c.IsTeacherApproved
             }).ToList();
@@ -115,7 +128,7 @@ namespace Calendar.Services
                 Description = c.Description,
                 StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
-                Topic = c.Topic,
+                Title = c.Title,
                 Duration = c.Duration,
                 IsTeacherApproved = c.IsTeacherApproved
             }).ToList();

@@ -53,5 +53,54 @@ namespace Calendar.Controllers.Api
 
             return Ok(commonResponse);
         }
+        [HttpGet]
+        [Route("GetCalendarData")]
+        public IActionResult GetCalendarData(string teacherId)
+        {
+            CommonResponse<List<LessonVM>> commonResponse = new CommonResponse<List<LessonVM>>();
+            try
+            {
+                if (role == Helper.Student)
+                {
+                    commonResponse.dataenum = _lessonService.StudentsEventsById(loginUserId);
+                    commonResponse.status = Helper.success_code;
+                }
+                else if (role == Helper.Teacher)
+                {
+                    commonResponse.dataenum = _lessonService.TeachersEventsById(loginUserId);
+                    commonResponse.status = Helper.success_code;
+                }
+                else
+                {
+                    commonResponse.dataenum = _lessonService.TeachersEventsById(teacherId);
+                    commonResponse.status = Helper.success_code;
+                }
+            }
+            catch (Exception e)
+            {
+                commonResponse.message = e.Message;
+                commonResponse.status = Helper.failure_code;
+            }
+            return Ok(commonResponse);
+        }
+        [HttpGet]
+        [Route("GetCalendarDataById/{id}")]
+        public IActionResult GetCalendarDataById(int id)
+        {
+            CommonResponse<LessonVM> commonResponse = new CommonResponse<LessonVM>();
+            try
+            {
+
+                commonResponse.dataenum = _lessonService.GetById(id);
+                commonResponse.status = Helper.success_code;
+
+            }
+            catch (Exception e)
+            {
+                commonResponse.message = e.Message;
+                commonResponse.status = Helper.failure_code;
+            }
+            return Ok(commonResponse);
+        }
     }
 }
