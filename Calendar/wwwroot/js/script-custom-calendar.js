@@ -41,7 +41,7 @@ function InitializeCalendar() {
                                         description: data.description,
                                         start: data.startDate,
                                         end: data.endDate,
-                                        backgroundColor: data.isTeacherApprove ? "#28a745" : "#dc3545",
+                                        backgroundColor: data.isTeacherApproved ? "#28a745" : "#dc3545",
                                         borderColor: "#162466",
                                         textColor: "white",
                                         id: data.id
@@ -80,6 +80,13 @@ function onShowModal(obj, isEventDetail) {
         $("#teacherId").val(obj.teacherId);
         $("#studentId").val(obj.studentId);
         $("#id").val(obj.id);
+        $("#lblStudentName").html(obj.studentName);
+        $("#lblTeacherName").html(obj.teacherName);
+        if (obj.isTeacherApproved) {
+            $("#lblStatus").html('Approved');
+        } else {
+            $("#lblStatus").html('Pending')
+        }
 
     }
     else {
