@@ -1,0 +1,40 @@
+﻿<div class="modal fade" role="dialog" id="lessonInput" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="lessonForm" autocomplete="off" novalidate="novalidate">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add/Edit Lesson</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="topic">Topic</label>
+                        <input type="text" maxlength="100" class="form-control" id="topic" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descriptions</label>
+                        <textarea type="text" class="form-control" id="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Select Student</label>
+                        <select id="studentId" asp-items="@(new SelectList(ViewBag.StudentList,"Id","Name"))" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lessonDate">Start Date Time</label>
+                        <input class="form-control" id="lessonDate" />
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Duration</label>
+                        <select id="duration" asp-items="ViewBag.Duration" class="form-control"></select>
+                    </div>
+                    <input type="hidden" id="id" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="onCloseModal();">Close</button> &nbsp;
+                    <button type="button" id="btnSubmit" class="btn btn-success" onclick="onSubmitForm();">Submit</button>
+
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
