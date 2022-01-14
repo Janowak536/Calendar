@@ -84,14 +84,22 @@ function onShowModal(obj, isEventDetail) {
         $("#lblTeacherName").html(obj.teacherName);
         if (obj.isTeacherApproved) {
             $("#lblStatus").html('Approved');
+            $("#btnConfirm").addClass("d-none");
+            $("#btnSubmit").addClass("d-none");
         } else {
-            $("#lblStatus").html('Pending')
+            $("#lblStatus").html('Pending');
+            $("#btnConfirm").removeClass("d-none");
+            $("#btnSubmit").removeClass("d-none");
         }
+        $("#btnDelete").removeClass("d-none");
+
 
     }
     else {
         $("#lessonDate").val(obj.startStr + " " + new moment().format("hh:mm A"));
         $("#id").val(0);
+        $("#btnDelete").addClass("d-none");
+        $("#btnSubmit").removeClass("d-none");
     }
     $("#lessonInput").modal("show");
 }
@@ -102,9 +110,6 @@ function onCloseModal() {
     $("#title").val('');
     $("#description").val('');
     $("#lessonDate").val('');
-    $("#duration").val('');
-    $("#studentId").val('');
-
     $("#lessonInput").modal("hide");
 }
 
