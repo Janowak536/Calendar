@@ -17,6 +17,10 @@ namespace Calendar.Utility
         public static string lessonExists = "Lesson for selected date and time already exists.";
         public static string lessonNotExists = "Lesson not exists.";
 
+        public static string meetingConfirm = "Meeting confirm successfully.";
+        public static string meetingConfirmError = "Error while confirming meeting";
+
+
         public static string lessonAddError = "Something went wront, Please try again.";
         public static string lessonUpdatError = "Something went wront, Please try again.";
         public static string somethingWentWrong = "Something went wront, Please try again.";

@@ -70,12 +70,12 @@
                     @if (User.IsInRole(Calendar.Utility.Helper.Admin))
                     {
                         <button type="button" id="btnSubmit" class="btn btn-success" onclick="onSubmitForm();">Submit</button>
-                        <button type="button" id="btnDelete" class="btn btn-danger hidden" onclick="onDeleteLesson;">Delete</button>
+                        <button type="button" id="btnDelete" class="btn btn-danger hidden" onclick="onDeleteLesson();">Delete</button>
                     }
                     @if (User.IsInRole(Calendar.Utility.Helper.Teacher))
                     {
                         <button type="button" id="btnConfirm" class="btn btn-success" onclick="onConfirm();">Confirm</button>
-                        <button type="button" id="btnDelete" class="btn btn-danger hidden" onclick="onDeleteLesson;">Delete</button>
+                        <button type="button" id="btnDelete" class="btn btn-danger hidden" onclick="onDeleteLesson();">Delete</button>
                     }
 
 

@@ -105,6 +105,52 @@ namespace Calendar.Controllers.Api
             return Ok(commonResponse);
         }
 
+        [HttpGet]
+        [Route("DeleteLesson/{id}")]
+        public async Task<IActionResult> DeleteLesson(int id)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                commonResponse.status = await _lessonService.Delete(id);
+                commonResponse.message = commonResponse.status == 1 ? Helper.lessonDeleted : Helper.somethingWentWrong;
 
+            }
+            catch (Exception e)
+            {
+                commonResponse.message = e.Message;
+                commonResponse.status = Helper.failure_code;
+            }
+            return Ok(commonResponse);
+        }
+
+        [HttpGet]
+        [Route("ConfirmEvent/{id}")]
+        public IActionResult ConfirmEvent(int id)
+        {
+            CommonResponse<int> commonResponse = new CommonResponse<int>();
+            try
+            {
+                var result = _lessonService.ConfirmEvent(id).Result;
+                if (result>0)
+                {
+                    commonResponse.status = Helper.success_code;
+                    commonResponse.message = Helper.meetingConfirm;
+                }
+                else
+                {
+                    commonResponse.status = Helper.failure_code;
+                    commonResponse.message = Helper.meetingConfirmError;
+                }
+                
+
+            }
+            catch (Exception e)
+            {
+                commonResponse.message = e.Message;
+                commonResponse.status = Helper.failure_code;
+            }
+            return Ok(commonResponse);
+        }
     }
 }

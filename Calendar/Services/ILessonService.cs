@@ -17,5 +17,7 @@ namespace Calendar.Services
         public List<LessonVM> StudentsEventsById(string studentId);
 
         public LessonVM GetById(int id);
+        public Task<int> Delete(int id);
+        public Task<int> ConfirmEvent(int id);
     }
 }

@@ -125,5 +125,28 @@ namespace Calendar.Services
                 IsTeacherApproved = c.IsTeacherApproved
             }).ToList();
         }
+
+        public async Task<int> Delete(int id)
+        {
+
+            var lesson = _db.Lessons.FirstOrDefault(x => x.Id == id);
+            if (lesson != null)
+            {
+                _db.Lessons.Remove(lesson);
+                return await _db.SaveChangesAsync();
+            }
+            return 0;
+        }
+
+        public async Task<int> ConfirmEvent(int id)
+        {
+            var lesson = _db.Lessons.FirstOrDefault(x => x.Id == id);
+            if(lesson != null)
+            {
+                lesson.IsTeacherApproved = true;
+                return await _db.SaveChangesAsync();
+            }
+            return 0;
+        }
     }
 }
