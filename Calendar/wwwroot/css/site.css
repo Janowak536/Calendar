@@ -29,7 +29,9 @@ a {
 html {
     font-size: 14px;
 }
-
+.w-7 {
+    width: 7% !important;
+}
 @media (min-width: 768px) {
     html {
         font-size: 16px;
