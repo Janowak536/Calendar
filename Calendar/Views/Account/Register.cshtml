@@ -1,12 +1,20 @@
 ﻿@model Calendar.Models.ViewModels.RegisterViewModel
 
-<h2>Sign Up</h2>
+<h2>Zarejestruj się</h2>
 <form method="post" asp-action="Register" asp-controller="Account">
-    <h4>Create a new account.</h4>
+    @if (User.IsInRole(Calendar.Utility.Helper.Admin))
+    {
+        <h4>Zarejestruj konto admina.</h4>
+    }
+    else
+    {
+        <h4>Stwórz nowe konto.</h4>
+    }
+
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group row">
-        <label class="col-md-2" asp-for="Name"></label>
+        <label class="col-md-2" asp-for="Name">Imię i nazwisko</label>
         <div class=" col-md-10">
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
@@ -20,33 +28,34 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2" asp-for="Password"></label>
+        <label class="col-md-2" asp-for="Password">Hasło</label>
         <div class=" col-md-10">
             <input asp-for="Password" class="form-control" />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2" asp-for="ConfirmPassword"></label>
+        <label class="col-md-2" asp-for="ConfirmPassword">Potwierdź hasło</label>
         <div class=" col-md-10">
             <input asp-for="ConfirmPassword" class="form-control" />
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-md-2" asp-for="RoleName"></label>
+        <label class="col-md-2" asp-for="RoleName">Zarejestruj jako</label>
         <div class=" col-md-10">
-            <select asp-for="RoleName" asp-items="@Calendar.Utility.Helper.GetRolesForDropDown()" class="form-control"></select>
+            <select asp-for="RoleName" 
+                    asp-items="@Calendar.Utility.Helper.GetRolesForDropDown(User.IsInRole(Calendar.Utility.Helper.Admin))" class="form-control"></select>
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
         <div class="col-md-10 offset-md-2">
-            <input type="submit" value="Register" class="btn btn-success" />
+            <input type="submit" value="Zarejestruj" class="btn btn-success" />
         </div>
     </div>
     <p class="col-md-10 offset-md-2">
-        <a asp-action="Login">Sign In</a>
+        <a asp-action="Login">Zaloguj</a>
     </p>
 </form>
 

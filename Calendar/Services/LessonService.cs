@@ -24,12 +24,22 @@ namespace Calendar.Services
 
             if (model != null && model.Id > 0)
             {
-                //update
+                var lesson = _db.Lessons.FirstOrDefault(x => x.Id == model.Id);
+                lesson.Title = model.Title;
+                lesson.Description = model.Description;
+                lesson.StartDate = startDate;
+                lesson.EndDate = endDate;
+                lesson.Duration = model.Duration;
+                lesson.TeacherId = model.TeacherId;
+                    lesson.StudentId = model.StudentId;
+                    lesson.IsTeacherApproved = false;
+                    lesson.AdminId = model.AdminId;
+
+                await _db.SaveChangesAsync();
                 return 1;
             }
             else
             {
-                //create
                 Lesson lesson = new Lesson()
                 {
                     Title = model.Title,

@@ -2,7 +2,8 @@
 $(document).ready(function () {
     $("#lessonDate").kendoDateTimePicker({
         value: new Date(),
-        dateInput: false
+        dateInput: false,
+        format: "dd/MM/yyyy HH:mm:ss"
     });
 
     InitializeCalendar();
@@ -83,11 +84,11 @@ function onShowModal(obj, isEventDetail) {
         $("#lblStudentName").html(obj.studentName);
         $("#lblTeacherName").html(obj.teacherName);
         if (obj.isTeacherApproved) {
-            $("#lblStatus").html('Approved');
+            $("#lblStatus").html('Potwierdzone');
             $("#btnConfirm").addClass("d-none");
             $("#btnSubmit").addClass("d-none");
         } else {
-            $("#lblStatus").html('Pending');
+            $("#lblStatus").html('Niepotwierdzone');
             $("#btnConfirm").removeClass("d-none");
             $("#btnSubmit").removeClass("d-none");
         }

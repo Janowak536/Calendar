@@ -3,17 +3,17 @@
 {
 <form method="post" id="logoutForm" asp-action="Logoff" asp-controller="Account">
     <ul class="nav navbar-nav">
-        <li class="text-white nav-link">Hello, @User.Identity.Name! </li>
-        <li><a class="text-white nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li class="text-white nav-link mr-4">Witaj @User.Identity.Name </li>
+        <li><a class="text-white nav-link" href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
     </ul>
 </form> }
-            else
-            {
+else
+{
 <ul class="nav navbar-nav">
     <li class="nav-item">
-        <a class="nav-link text-white" id="registerLink" asp-controller="Account" asp-action="Register">Register</a>
+        <a class="nav-link text-white" id="registerLink" asp-controller="Account" asp-action="Register">Rejestracja</a>
     </li>
     <li>
-        <a class="nav-link text-white" id="loginLink" asp-controller="Account" asp-action="Login">Sign In</a>
+        <a class="nav-link text-white" id="loginLink" asp-controller="Account" asp-action="Login">Logowanie</a>
     </li>
 </ul>}
