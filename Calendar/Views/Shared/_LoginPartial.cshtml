@@ -1,4 +1,4 @@
-﻿@inject Microsoft.AspNetCore.Identity.SignInManager<Calendar.Models.ApplicationUser> signInManager
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<Calendar.DataAccess.Models.ApplicationUser> signInManager
 @if (signInManager.IsSignedIn(User))
 {
 <form method="post" id="logoutForm" asp-action="Logoff" asp-controller="Account">

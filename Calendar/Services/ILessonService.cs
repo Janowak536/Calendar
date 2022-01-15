@@ -1,4 +1,4 @@
-﻿using Calendar.Models.ViewModels;
+﻿using Calendar.Api.Views.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

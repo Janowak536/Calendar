@@ -1,11 +1,9 @@
-﻿using Calendar.Models;
-using Calendar.Models.ViewModels;
+﻿using Calendar.Api.Views.ViewModels;
+using Calendar.DataAccess;
+using Calendar.DataAccess.Models;
 using Calendar.Utility;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Calendar.Controllers

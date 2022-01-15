@@ -1,11 +1,10 @@
-﻿using Calendar.Models.ViewModels;
+﻿using Calendar.Api.Views.ViewModels;
 using Calendar.Services;
 using Calendar.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 

@@ -1,6 +1,6 @@
 using System;
 
-namespace Calendar.Models
+namespace Calendar.Api.Views.ViewModels
 {
     public class ErrorViewModel
     {

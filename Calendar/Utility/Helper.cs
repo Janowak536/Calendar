@@ -29,12 +29,13 @@ namespace Calendar.Utility
 
         public static List<SelectListItem> GetRolesForDropDown(bool isAdmin)
         {
+
             if (isAdmin)
             {
                 return new List<SelectListItem>
-            {
-                new SelectListItem{Value=Helper.Admin,Text=Helper.Admin}
-            };
+                {
+                    new SelectListItem{Value=Helper.Admin,Text=Helper.Admin}
+                };
             }
             else
             {

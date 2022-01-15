@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Calendar.Models.ViewModels
+namespace Calendar.Api.Views.ViewModels
 {
     public class LessonVM
     {

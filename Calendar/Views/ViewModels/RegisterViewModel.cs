@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Calendar.Models.ViewModels
+namespace Calendar.Api.Views.ViewModels
 {
     public class RegisterViewModel
     {

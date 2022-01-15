@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Calendar.Models.ViewModels
+namespace Calendar.Api.Views.ViewModels
 {
     public class LoginViewModel
     {
@@ -16,7 +16,7 @@ namespace Calendar.Models.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name ="Remember me?")]
+        [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
 }
