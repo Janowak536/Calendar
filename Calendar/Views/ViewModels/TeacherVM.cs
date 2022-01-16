@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Calendar.Api.Views.ViewModels
 {
+
     public class TeacherVM
     {
         public string Id { get; set; }

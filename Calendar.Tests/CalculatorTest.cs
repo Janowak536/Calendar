@@ -8,11 +8,11 @@ using Xunit;
 
 namespace Calendar.Tests
 {
-    public class CalculatorControllerTest
+    public class CalculatorTest
     {
         private Calculator _unitTesting = null;
 
-        public CalculatorControllerTest()
+        public CalculatorTest()
         {
             if (_unitTesting == null)
             {
