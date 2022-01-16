@@ -1,4 +1,7 @@
-﻿@model Calendar.Models.ViewModels.LoginViewModel
+﻿@{
+    ViewData["Title"] = "Logowanie";
+}
+@model Calendar.Api.Views.ViewModels.LoginViewModel
 
 <h2>Zaloguj się</h2>
 <div class="row">
@@ -26,7 +29,8 @@
                     <div class=" col-md-10 offset-md-2 checkbox">
                         <label asp-for="RememberMe" class="pr-4 pl-0">
                             <input asp-for="RememberMe" />
-                        </label>Zapamiętaj mnie</div>
+                        </label>Zapamiętaj mnie
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-10 offset-md-2">

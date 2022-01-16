@@ -1,3 +1,4 @@
+using Calendar.Api.CalculatorForTests;
 using Calendar.DataAccess;
 using Calendar.DataAccess.Models;
 using Calendar.Services;
@@ -27,13 +28,13 @@ namespace Calendar
             services.AddControllersWithViews();
             services.AddTransient<ILessonService, LessonService>();
             services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
-
             services.AddHttpContextAccessor();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

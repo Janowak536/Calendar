@@ -1,15 +1,16 @@
-﻿@model Calendar.Models.ViewModels.RegisterViewModel
+﻿@{
+    ViewData["Title"] = "Rejestracja";
+}
+@model Calendar.Api.Views.ViewModels.RegisterViewModel
 
 <h2>Zarejestruj się</h2>
 <form method="post" asp-action="Register" asp-controller="Account">
     @if (User.IsInRole(Calendar.Utility.Helper.Admin))
     {
-        <h4>Zarejestruj konto admina.</h4>
-    }
-    else
-    {
-        <h4>Stwórz nowe konto.</h4>
-    }
+<h4>Zarejestruj konto admina.</h4> }
+            else
+            {
+<h4>Stwórz nowe konto.</h4>}
 
     <hr />
     <div asp-validation-summary="All" class="text-danger"></div>
@@ -44,7 +45,7 @@
     <div class="form-group row">
         <label class="col-md-2" asp-for="RoleName">Zarejestruj jako</label>
         <div class=" col-md-10">
-            <select asp-for="RoleName" 
+            <select asp-for="RoleName"
                     asp-items="@Calendar.Utility.Helper.GetRolesForDropDown(User.IsInRole(Calendar.Utility.Helper.Admin))" class="form-control"></select>
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>

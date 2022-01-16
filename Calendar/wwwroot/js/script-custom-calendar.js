@@ -93,8 +93,6 @@ function onShowModal(obj, isEventDetail) {
             $("#btnSubmit").removeClass("d-none");
         }
         $("#btnDelete").removeClass("d-none");
-
-
     }
     else {
         $("#lessonDate").val(obj.startStr + " " + new moment().format("hh:mm A"));
